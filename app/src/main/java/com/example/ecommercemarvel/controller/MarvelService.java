@@ -1,6 +1,11 @@
 package com.example.ecommercemarvel.controller;
 
+<<<<<<< HEAD
 import com.example.ecommercemarvel.model.MarvelDTO;
+=======
+
+import com.example.ecommercemarvel.model.ResponseDTO;
+>>>>>>> 881c2a1ecd195d4718fc7eb03df35e7ffdc191d4
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -8,11 +13,9 @@ import retrofit2.http.Query;
 
 public interface MarvelService {
 
-    /*public MarvelService() {
-        String PRIVATE_KEY = "43de5ac9c8f743f13ca4e01040a03e69";
-        String PUBLIC_KEY = "7e16f91cede5704285cc8f570b5ad139c671fa1b";
 
 
+<<<<<<< HEAD
         Timestamp time = new Timestamp(System.currentTimeMillis());
         MessageDigest m = null;
         try {
@@ -35,5 +38,10 @@ public interface MarvelService {
 
     @GET("comics")
     Call<MarvelDTO> loadComics(@Query("ts") String ts, @Query("apikey") String public_key, @Query("hash") String hash);
+=======
+    @GET("v1/public/comics")
+    Call<ResponseDTO> loadComics(@Query("ts") String ts, @Query("apikey") String apikey, @Query("hash") String hash);
+
+>>>>>>> 881c2a1ecd195d4718fc7eb03df35e7ffdc191d4
 
 }
