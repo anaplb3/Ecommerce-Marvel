@@ -10,16 +10,15 @@ public class Comic {
     private int id;
     private String title;
     private String description;
-    private List<String> prices;
-    private List<String> thumbnail;
+    private List<Price> prices;
+    private Thumbnail thumbnail;
 
 
-    private static double REAL_BRASILERO = 3.76;
     private double price;
     private String urlImage;
     private boolean isRare;
 
-    public Comic(int id, String title, String description, List<String> prices, List<String> thumbnail) {
+    public Comic(int id, String title, String description, List<Price> prices, Thumbnail thumbnail) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -60,19 +59,19 @@ public class Comic {
         this.description = description;
     }
 
-    public List<String> getPrices() {
+    public List<Price> getPrices() {
         return prices;
     }
 
-    public void setPrices(List<String> prices) {
+    public void setPrices(List<Price> prices) {
         this.prices = prices;
     }
 
-    public List<String> getThumbnail() {
+    public Thumbnail getThumbnail() {
         return thumbnail;
     }
 
-    public void setThumbnail(List<String> thumbnail) {
+    public void setThumbnail(Thumbnail thumbnail) {
 
         this.thumbnail = thumbnail;
     }
@@ -83,9 +82,10 @@ public class Comic {
     }
 
     public void setPrice() {
-        String preco =  this.getPrices().get(1);
+        double preco =  this.getPrices().get(0).getPrice();
 
-        this.price = Double.parseDouble(preco)  * REAL_BRASILERO;
+        double REAL_BRASILERO = 3.76;
+        this.price = preco  * REAL_BRASILERO;
     }
 
     public String getUrlImage() {
@@ -94,8 +94,8 @@ public class Comic {
     }
 
     public void setUrlImage() {
-        String url = this.thumbnail.get(0);
-        String extension = this.thumbnail.get(1);
+        String url = this.thumbnail.getPath();
+        String extension = this.thumbnail.getExtension();
 
         this.urlImage = url + "/portrait_fantastic." + extension;
     }

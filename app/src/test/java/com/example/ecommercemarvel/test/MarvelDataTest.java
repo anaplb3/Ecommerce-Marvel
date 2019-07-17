@@ -3,6 +3,8 @@ package com.example.ecommercemarvel.test;
 
 import com.example.ecommercemarvel.model.Comic;
 import com.example.ecommercemarvel.model.MarvelData;
+import com.example.ecommercemarvel.model.Price;
+import com.example.ecommercemarvel.model.Thumbnail;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,45 +20,45 @@ public class MarvelDataTest {
 
     @Before
     public void setUp() {
-        List<String> prices = new ArrayList<>();
-        prices.add("printPrice");
-        prices.add("3.99");
-
-        List<String> thumbnail = new ArrayList<>();
-        Comic c1 = new Comic(11111, "homem aranha", "hq do miranha", prices,thumbnail);
-        Comic c2 = new Comic(22222, "Iron man", "hq do homem de ferro", prices,thumbnail);
-        Comic c3 = new Comic(11111, "thor", "hq do thor", prices,thumbnail);
-        Comic c4 = new Comic(11111, "Iron Man Extreme", "hq do homem de ferro de novo pq ele é o melhor personagem", prices,thumbnail);
-        Comic c5 = new Comic(11111, "Capitã Marvel", "hq da capitã marvel", prices,thumbnail);
 
         List<Comic> comics = new ArrayList<>();
-        comics.add(c1);
-        comics.add(c2);
-        comics.add(c3);
-        comics.add(c4);
-        comics.add(c5);
 
-        marvelData = new MarvelData(5, 5,comics);
+        for(int i = 0; i < 20; i++) {
+            comics.add(generatingComics(i*12));
+        }
+
+
+        marvelData = new MarvelData(comics.size(), 5,comics);
+    }
+
+    private Comic generatingComics(int id) {
+        Price price = new Price("printPrice", 3.99);
+        Thumbnail thumbnail = new Thumbnail("bla bla", "jpg");
+
+        List<Price> prices = new ArrayList<>();
+        prices.add(price);
+
+        return new Comic(id,"Iron Man", "Melhor herói da Marvel, é isto", prices, thumbnail);
     }
 
 
     @Test
     public void testCheckingRareComics() {
-        List<Integer> randomNumbers = new ArrayList<>();
-
-        randomNumbers.add(3);
-        randomNumbers.add(1);
-
-        marvelData.setRandomNumbers(randomNumbers);
 
         List<Comic> comics = marvelData.getComics();
-        marvelData.setNumberOfRareComics(2);
+        List<Integer> randomNumbers = marvelData.getRandomNumbers();
 
-        Comic c = comics.get(3);
+        for(int i = 0; i < randomNumbers.size(); i++) {
+            assertTrue(comics.get(randomNumbers.get(i)).isRare());
+        }
 
-        assertTrue(comics.get(3).isRare());
-        assertTrue(comics.get(1).isRare());
+    }
 
+    @Test
+    public void testGetting12Percent() {
+
+        int twelvePercent = (12 * marvelData.getComics().size()) / 100;
+        assertEquals(twelvePercent, marvelData.getNumberOfRareComics());
 
 
     }

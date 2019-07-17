@@ -1,7 +1,5 @@
 package com.example.ecommercemarvel.model;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -10,15 +8,15 @@ public class MarvelData {
 
     private int total;
     private int count;
-    private List<Comic> comics;
+    private List<Comic> results;
     private int numberOfRareComics;
     private List<Integer> randomNumbers;
 
-    public MarvelData(int total, int count, List<Comic> comics) {
+    public MarvelData(int total, int count, List<Comic> results) {
         this.total = total;
         this.count = count;
-        this.comics = comics;
-        this.numberOfRareComics = (int) (12 * total) / 100;
+        this.results = results;
+        this.numberOfRareComics = (12 * total) / 100;
     }
 
     /**
@@ -29,18 +27,27 @@ public class MarvelData {
     private void creatingIndexOfRareComics() {
         Random random = new Random();
         randomNumbers = new ArrayList<>();
-        int n = 0;
+        int randomNumber;
+
+
 
         for (int i = 0; i < numberOfRareComics; i++) {
-            n = random.nextInt(numberOfRareComics - 1);
+            randomNumber = random.nextInt(numberOfRareComics);
 
-            while (randomNumbers.contains(n)) {
-                n = random.nextInt(numberOfRareComics - 1);
+
+            while(randomNumbers.contains(randomNumber)) {
+
+                randomNumber = random.nextInt(numberOfRareComics);
             }
 
-            randomNumbers.add(n);
+            randomNumbers.add(randomNumber);
+
         }
 
+    }
+
+    public int getNumberOfRareComics() {
+        return numberOfRareComics;
     }
 
     public void setNumberOfRareComics(int numberOfRareComics) {
@@ -51,16 +58,15 @@ public class MarvelData {
      * Marca os quadrinhos que tem index igual ao número aleatório da lista como 'Raro'
      */
     private void checkingRareComics() {
+        creatingIndexOfRareComics();
 
-        for (int i = 0; i < comics.size(); i++) {
-
-            System.out.println("index comics"+i);
+        for (int i = 0; i < results.size(); i++) {
 
             for (int k = 0; k < randomNumbers.size(); k++) {
 
                 if (i == randomNumbers.get(k)) {
 
-                    comics.get(i).setRare(true);
+                    results.get(i).setRare(true);
                 }
             }
         }
@@ -92,10 +98,10 @@ public class MarvelData {
 
     public List<Comic> getComics() {
         checkingRareComics();
-        return comics;
+        return results;
     }
 
     public void setComics(List<Comic> comics) {
-        this.comics = comics;
+        this.results = comics;
     }
 }

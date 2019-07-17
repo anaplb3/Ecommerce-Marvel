@@ -15,4 +15,5 @@ public interface MarvelService {
     Call<ResponseDTO> loadComics(@Query("ts") String ts, @Query("apikey") String apikey, @Query("hash") String hash);
 
 
+
 }

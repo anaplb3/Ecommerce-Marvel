@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.ecommercemarvel.ComicsActivity;
 import com.example.ecommercemarvel.MainActivity;
 import com.example.ecommercemarvel.R;
 
@@ -25,7 +26,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     private void mostrarMainActivity() {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), ComicsActivity.class);
         startActivity(intent);
         finish();
     }
