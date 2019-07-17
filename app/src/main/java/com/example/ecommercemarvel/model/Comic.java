@@ -7,30 +7,40 @@ import java.util.List;
  */
 
 public class Comic {
-    private Long id;
+    private int id;
     private String title;
     private String description;
-    private List<Object> prices;
-    private String[] thumbnail;
+    private List<String> prices;
+    private List<String> thumbnail;
 
 
     private static double REAL_BRASILERO = 3.76;
     private double price;
     private String urlImage;
+    private boolean isRare;
 
-    public Comic(Long id, String title, String description, List<Object> prices, String[] thumbnail) {
+    public Comic(int id, String title, String description, List<String> prices, List<String> thumbnail) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.prices = prices;
         this.thumbnail = thumbnail;
+        this.isRare = false;
     }
 
-    public Long getId() {
+    public boolean isRare() {
+        return isRare;
+    }
+
+    public void setRare(boolean rare) {
+        isRare = rare;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -50,19 +60,19 @@ public class Comic {
         this.description = description;
     }
 
-    public List<Object> getPrices() {
+    public List<String> getPrices() {
         return prices;
     }
 
-    public void setPrices(List<Object> prices) {
+    public void setPrices(List<String> prices) {
         this.prices = prices;
     }
 
-    public String[] getThumbnail() {
+    public List<String> getThumbnail() {
         return thumbnail;
     }
 
-    public void setThumbnail(String[] thumbnail) {
+    public void setThumbnail(List<String> thumbnail) {
 
         this.thumbnail = thumbnail;
     }
@@ -73,8 +83,9 @@ public class Comic {
     }
 
     public void setPrice() {
-        double preco = (double) this.getPrices().get(1);
-        this.price = preco * REAL_BRASILERO;
+        String preco =  this.getPrices().get(1);
+
+        this.price = Double.parseDouble(preco)  * REAL_BRASILERO;
     }
 
     public String getUrlImage() {
@@ -83,8 +94,8 @@ public class Comic {
     }
 
     public void setUrlImage() {
-        String url = this.thumbnail[0];
-        String extension = this.thumbnail[1];
+        String url = this.thumbnail.get(0);
+        String extension = this.thumbnail.get(1);
 
         this.urlImage = url + "/portrait_fantastic." + extension;
     }

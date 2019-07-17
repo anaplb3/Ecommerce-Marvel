@@ -64,6 +64,7 @@ public class Controller implements Callback<ResponseDTO> {
 
     @Override
     public void onFailure(Call<ResponseDTO> call, Throwable t) {
+        responseDTO = null;
         Log.i("comic", "então né, deu erro");
         Log.i("erro", t.getMessage());
 
