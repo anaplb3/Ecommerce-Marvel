@@ -3,12 +3,12 @@ package com.example.ecommercemarvel.controller;
 
 import com.example.ecommercemarvel.model.ResponseDTO;
 
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface MarvelService {
-
 
 
     @GET("v1/public/comics")

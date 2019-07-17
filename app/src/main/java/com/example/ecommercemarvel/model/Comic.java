@@ -7,6 +7,7 @@ import java.util.List;
  */
 
 public class Comic {
+
     private int id;
     private String title;
     private String description;
@@ -98,5 +99,6 @@ public class Comic {
         String extension = this.thumbnail.getExtension();
 
         this.urlImage = url + "/portrait_fantastic." + extension;
+
     }
 }

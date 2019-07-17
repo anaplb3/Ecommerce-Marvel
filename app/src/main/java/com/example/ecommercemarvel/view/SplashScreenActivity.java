@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.ecommercemarvel.ComicsActivity;
-import com.example.ecommercemarvel.MainActivity;
 import com.example.ecommercemarvel.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
