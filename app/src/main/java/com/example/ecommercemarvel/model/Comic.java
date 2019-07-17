@@ -5,36 +5,38 @@ package com.example.ecommercemarvel.model;
  */
 
 public class Comic {
+
+    private Long id;
     private String title;
     private String description;
-    private double price;
-    private String url_image;
-    private static double REAL_BRASILERO = 3.76;
 
-    public Comic(String title, String description, double price, String url_image) {
+    public Comic(Long id, String title, String description) {
+        this.id = id;
         this.title = title;
         this.description = description;
-        this.price = REAL_BRASILERO * price;
-        this.url_image = url_image;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getDescription() {
         return description;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public String getUrl_image() {
-        return url_image;
-    }
-
-    public static double getRealBrasilero() {
-        return REAL_BRASILERO;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

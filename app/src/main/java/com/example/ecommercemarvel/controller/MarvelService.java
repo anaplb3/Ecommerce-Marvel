@@ -1,15 +1,8 @@
 package com.example.ecommercemarvel.controller;
 
-import com.example.ecommercemarvel.model.Comic;
-
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.sql.Timestamp;
-import java.util.List;
+import com.example.ecommercemarvel.model.MarvelDTO;
 
 import retrofit2.Call;
-import retrofit2.Retrofit;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -40,8 +33,7 @@ public interface MarvelService {
     }*/
 
 
-    @GET("/comics")
-    Call<List<Comic>> loadComics(@Query("ts") String ts,@Query("apikey") String public_key, @Query("hash") String hash);
-
+    @GET("comics")
+    Call<MarvelDTO> loadComics(@Query("ts") String ts, @Query("apikey") String public_key, @Query("hash") String hash);
 
 }

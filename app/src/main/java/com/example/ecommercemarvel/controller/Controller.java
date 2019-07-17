@@ -2,6 +2,7 @@ package com.example.ecommercemarvel.controller;
 
 import android.util.Log;
 
+import com.example.ecommercemarvel.model.MarvelDTO;
 import com.example.ecommercemarvel.model.Comic;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -18,14 +19,13 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Controller implements Callback<List<Comic>> {
+public class Controller implements Callback<MarvelDTO> {
     private static final String URL_BASE = "https://gateway.marvel.com/v1/public/";
     private Timestamp time;
     private int ts;
     private static final String private_key ="43de5ac9c8f743f13ca4e01040a03e69";
     private static final String public_key = "7e16f91cede5704285cc8f570b5ad139c671fa1b";
     private List<Comic> comics;
-
 
     private String creating_hash() throws NoSuchAlgorithmException{
 
@@ -50,7 +50,7 @@ public class Controller implements Callback<List<Comic>> {
 
     public void create() {
         Gson gson_converter = new GsonBuilder()
-                .setLenient()
+//                .setLenient()
                 .create();
 
         String hash = null;
@@ -67,34 +67,35 @@ public class Controller implements Callback<List<Comic>> {
 
         MarvelService marvelAPI = retrofit.create(MarvelService.class);
 
-        Call<List<Comic>> comics = marvelAPI.loadComics(str (ts), public_key, hash);
+        Call<MarvelDTO> comics = marvelAPI.loadComics("1563301090313",
+                "b4cd443a32bbf5b36e3ef1b9337b60d0",
+                "a06144f886aa12b6407c0c40a0167006");
         comics.enqueue(this);
 
     }
 
     @Override
-    public void onResponse(Call<List<Comic>> call, Response<List<Comic>> response) {
+    public void onResponse(Call<MarvelDTO> call, Response<MarvelDTO> response) {
         Log.i("comic", "on response");
 
         Log.i("url", ""+response.raw().request().url());
 
         if(response.isSuccessful()) {
-            Log.i("comic", "on response2");
-            List<Comic> comics = response.body();
-            if(comics.isEmpty()) {
-                Log.i("comic", "tá null");
-            }
-            for (Comic c: comics) {
-                Log.i("comic", c.getTitle());
+            MarvelDTO body = response.body();
+            Log.i("response", body.getEtag());
+
+            for(Comic comic: body.getData().getResults()) {
+                Log.i(comic.getTitle(), comic.getTitle());
             }
         } else {
-            Log.i("comic", ""+response.errorBody());
+            Log.i("teste2", ""+response.code());
         }
     }
 
     @Override
-    public void onFailure(Call<List<Comic>> call, Throwable t) {
+    public void onFailure(Call<MarvelDTO> call, Throwable t) {
         Log.i("comic", "então né, deu erro");
-
+        Log.i("teste", t.getMessage());
+        Log.i("response", call.request().url().toString());
     }
 }
