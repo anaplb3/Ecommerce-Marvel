@@ -1,6 +1,8 @@
 package com.example.ecommercemarvel.model;
 
-public class Price {
+import java.io.Serializable;
+
+public class Price implements Serializable {
     private String type;
     private double price;
 

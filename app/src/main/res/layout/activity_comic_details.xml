@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.ComicDetailsActivity">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <Button
+            android:id="@+id/buttonExit"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:background="@android:drawable/ic_menu_close_clear_cancel" />
+
+        <ImageView
+            android:id="@+id/comicDetailImage"
+            android:layout_width="match_parent"
+            android:layout_height="195dp"
+            app:srcCompat="@drawable/tony" />
+
+        <Button
+            android:id="@+id/buttonAddToChart"
+            android:layout_width="216dp"
+            android:layout_height="52dp"
+            android:layout_gravity="right"
+            android:layout_marginTop="10dp"
+            android:background="@color/marvelRed"
+            android:text="Colocar no carrinho!" />
+
+        <TextView
+            android:id="@+id/comicDetailPrice"
+            android:layout_width="166dp"
+            android:layout_height="57dp"
+            android:gravity="center"
+            android:text="Preço: R$45,00"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/buttonBuy"
+            android:layout_width="216dp"
+            android:layout_height="52dp"
+            android:layout_gravity="right"
+            android:layout_marginBottom="10dp"
+            android:background="@color/marvelRed"
+            android:text="Comprar!" />
+
+        <TextView
+            android:id="@+id/comicDetailDescription"
+            android:layout_width="match_parent"
+            android:layout_height="285dp"
+            android:layout_marginBottom="10dp"
+            android:text="TextView" />
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

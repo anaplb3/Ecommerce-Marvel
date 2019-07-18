@@ -11,7 +11,7 @@ import retrofit2.http.Query;
 public interface MarvelService {
 
 
-    @GET("v1/public/comics")
+    @GET("v1/public/comics?limit=50")
     Call<ResponseDTO> loadComics(@Query("ts") String ts, @Query("apikey") String apikey, @Query("hash") String hash);
 
 
