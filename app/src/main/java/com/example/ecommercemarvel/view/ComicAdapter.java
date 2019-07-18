@@ -1,6 +1,7 @@
 package com.example.ecommercemarvel.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,6 +20,8 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.MyViewHolder
 
     private List<Comic> comics;
     private Context context;
+    private Comic comic;
+    private Comic previousComic;
 
     public ComicAdapter(Context context) {
         this.context = context;
@@ -42,13 +45,21 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ComicAdapter.MyViewHolder myViewHolder, int i) {
-        Comic comic = this.comics.get(i);
+
+        // Evitando que ele passe o quadrinho errado para a próxima activity (ComicDetails)
+        try {
+            previousComic = this.comics.get(i-1);
+        }catch (IndexOutOfBoundsException error) {
+            previousComic = this.comics.get(i);
+        }
+
+
+        comic = this.comics.get(i);
 
 
         Glide.with(context)
                 .load(comic.getUrlImage())
                 .placeholder(R.drawable.tony)
-                .centerCrop()
                 .into(myViewHolder.comicImage);
 
         myViewHolder.comicTitle.setText(comic.getTitle());
@@ -64,10 +75,20 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.MyViewHolder
         final TextView comicTitle;
         final ImageView comicImage;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull final View itemView) {
             super(itemView);
             comicTitle = itemView.findViewById(R.id.comicTitle);
             comicImage = itemView.findViewById(R.id.comicImage);
+
+            comicImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ComicDetailsActivity.class);
+                    intent.putExtra("comicObject", previousComic);
+                    context.startActivity(intent);
+                }
+            });
+
         }
 
 

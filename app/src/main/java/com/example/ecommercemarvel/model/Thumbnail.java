@@ -1,6 +1,8 @@
 package com.example.ecommercemarvel.model;
 
-public class Thumbnail {
+import java.io.Serializable;
+
+public class Thumbnail implements Serializable {
     private String path;
     private String extension;
 

@@ -1,19 +1,19 @@
-package com.example.ecommercemarvel;
+package com.example.ecommercemarvel.view;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.ActionBar;
+
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 
 
+import com.example.ecommercemarvel.R;
 import com.example.ecommercemarvel.controller.MarvelService;
 import com.example.ecommercemarvel.model.ResponseDTO;
 import com.example.ecommercemarvel.service.MarvelPoolService;
-import com.example.ecommercemarvel.view.ComicAdapter;
-
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,9 +21,8 @@ import retrofit2.Response;
 
 public class ComicsActivity extends AppCompatActivity implements Callback<ResponseDTO> {
     private RecyclerView recyclerView;
-    private ComicAdapter comicAdapter;
     private ResponseDTO responseDTO;
-    private static final String publicKey ="43de5ac9c8f743f13ca4e01040a03e69";
+    private static final String publicKey ="b4cd443a32bbf5b36e3ef1b9337b60d0";
 
 
     @Override
@@ -31,21 +30,26 @@ public class ComicsActivity extends AppCompatActivity implements Callback<Respon
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comics);
 
-        ActionBar bar = getSupportActionBar();
-        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("red")));
-
-
         this.recyclerView = findViewById(R.id.comicRecycleView);
 
         create();
+
+        Button buttonCheckout = findViewById(R.id.buttonGoCheckout);
+        buttonCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(getApplicationContext(), CheckoutActivity.class);
+                startActivity(it);
+            }
+        });
 
     }
 
 
     public void create() {
 
-        String ts = "anaehumapessoaincrivelmentetop";
-        String hash = "2164d8107865cd34e930ce21b2066289";
+        String ts = "1563301090313";
+        String hash = "a06144f886aa12b6407c0c40a0167006";
 
         MarvelService marvelAPI = MarvelPoolService.getInstance().getService(MarvelService.class);
 
@@ -66,10 +70,8 @@ public class ComicsActivity extends AppCompatActivity implements Callback<Respon
 
 
             this.responseDTO =  response.body();
-            this.comicAdapter = new ComicAdapter(this);
-            this.comicAdapter.setComics(this.responseDTO.getData().getComics());
-
-
+            ComicAdapter comicAdapter = new ComicAdapter(this);
+            comicAdapter.setComics(this.responseDTO.getData().getComics());
 
             recyclerView.setAdapter(comicAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -78,7 +80,6 @@ public class ComicsActivity extends AppCompatActivity implements Callback<Respon
 
         } else {
 
-            System.out.println("conectou mas deu errado");
             responseDTO = null;
         }
     }

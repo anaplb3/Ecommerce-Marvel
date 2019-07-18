@@ -1,11 +1,11 @@
 package com.example.ecommercemarvel.view;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.ecommercemarvel.ComicsActivity;
 import com.example.ecommercemarvel.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
@@ -14,6 +14,8 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

@@ -1,12 +1,13 @@
 package com.example.ecommercemarvel.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Classe que representa um quadrinho
  */
 
-public class Comic {
+public class Comic implements Serializable {
 
     private int id;
     private String title;
@@ -26,6 +27,13 @@ public class Comic {
         this.prices = prices;
         this.thumbnail = thumbnail;
         this.isRare = false;
+    }
+
+    public Comic(int id, String title, double price, boolean isRare) {
+        this.id = id;
+        this.title = title;
+        this.price = price;
+        this.isRare = isRare;
     }
 
     public boolean isRare() {
@@ -95,8 +103,8 @@ public class Comic {
     }
 
     public void setUrlImage() {
-        String url = this.thumbnail.getPath();
-        String extension = this.thumbnail.getExtension();
+        String url = this.getThumbnail().getPath();
+        String extension = this.getThumbnail().getExtension();
 
         this.urlImage = url + "/portrait_fantastic." + extension;
 
