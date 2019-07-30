@@ -54,19 +54,32 @@ public class DbComics implements ComicsDAO{
         Cursor cursor = read.rawQuery(query, null);
 
         // Getting columns index
+
+        // Aparentemente o erro é aqui no id, pois a função gettingIndex tá dizendo que o index do id é -1 (??)
         int indexIdComic = gettingIndex(cursor, "idComics");
+
+        //int indexIdComic = 0;
         int indexTitle = gettingIndex(cursor, "title");
-        int indexprice = gettingIndex(cursor, "price");
+        int indexPrice = gettingIndex(cursor, "price");
         int indexIsRare = gettingIndex(cursor, "isRare");
+
+
+        Log.i("id", ""+indexIdComic);
+        Log.i("title", ""+indexTitle);
+        Log.i("price", ""+indexPrice);
+        Log.i("is rare", ""+indexIsRare);
 
         if(cursor != null) {
             if(cursor.moveToFirst() && cursor.getCount() >= 1) {
 
                 do {
-                    idComic = cursor.getInt(indexIdComic);
+                    // Outra coisa, não tem como pegar só esses atributos, já que na tela do checkout precisa das imagens e etc.
+
                     title = cursor.getString(indexTitle);
-                    price = cursor.getDouble(indexprice);
+                    System.out.println("titulo: "+ title);
+                    price = cursor.getDouble(indexPrice);
                     isRare = cursor.getInt(indexIsRare);
+                    idComic = cursor.getInt(indexIdComic);
 
                     comic = new Comic(idComic, title, price, gettingBooleanValue(isRare));
 
