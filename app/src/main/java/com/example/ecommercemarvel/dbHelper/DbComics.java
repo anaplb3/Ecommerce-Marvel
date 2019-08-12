@@ -21,27 +21,17 @@ public class DbComics implements ComicsDAO{
     @Inject @Named("writer") SQLiteDatabase write;
     @Inject @Named("reader") SQLiteDatabase read;
     @Inject DbHelper db;
-    private DDbComics DDbComics;
-
 
     public DbComics(Context context) {
-        //Opa
-        /*DbHelper db = new DbHelper(context);
-        this.write = db.getWritableDatabase();
-        this.read = db.getReadableDatabase();*/
 
-        this.db = DaggerDDbComics.builder().dbHelperModule(new DbHelperModule(context)).build().getDbHelper();
-        this.read = DaggerDDbComics.builder().dbHelperModule(new DbHelperModule(context)).build().getReader();
-        this.write = DaggerDDbComics.builder().dbHelperModule(new DbHelperModule(context)).build().getWriter();
+        DDbComics dDbComics = DaggerDDbComics.builder().dbHelperModule(new DbHelperModule(context)).build();
+        dDbComics.inject(this);
 
-
-
-        Log.i("db is null", ""+(db != null) );
-        Log.i("writer is null", ""+(write != null) );
-        Log.i("reader is null", ""+(read != null) );
+        Log.i("db is null", ""+(db == null) );
+        Log.i("writer is null", ""+(write == null) );
+        Log.i("reader is null", ""+(read == null) );
 
     }
-
 
     @Override
     public void addingToTheCart(int idComic, String title, double price, int isRare) {

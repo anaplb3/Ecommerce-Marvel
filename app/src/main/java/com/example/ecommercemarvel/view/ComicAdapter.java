@@ -50,11 +50,10 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.MyViewHolder
         // Evitando que ele passe o quadrinho errado para a próxima activity (ComicDetails)
         try {
             previousComic = this.comics.get(i-1);
-        }catch (IndexOutOfBoundsException error) {
+        } catch (IndexOutOfBoundsException error) {
             previousComic = this.comics.get(i);
         }
-
-
+        
         comic = this.comics.get(i);
 
         //Aqui tb

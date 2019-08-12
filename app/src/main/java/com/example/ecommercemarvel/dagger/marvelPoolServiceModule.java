@@ -1,5 +1,6 @@
 package com.example.ecommercemarvel.dagger;
 
+import com.example.ecommercemarvel.controller.MarvelService;
 import com.example.ecommercemarvel.service.MarvelPoolService;
 
 import javax.inject.Singleton;
@@ -20,5 +21,17 @@ public class marvelPoolServiceModule {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
+
+    @Provides static MarvelPoolService provideMarvelPoolService(Retrofit retrofit) {
+        return new MarvelPoolService(retrofit);
+    }
+
+    @Provides static MarvelService providerMarvelService(MarvelPoolService marvelPoolService) {
+        return marvelPoolService.getService(MarvelService.class);
+    }
+
+
+
+
 
 }

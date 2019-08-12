@@ -37,7 +37,7 @@ public class DbHelperModule {
     }
 
     @Provides @Named("reader")
-    SQLiteDatabase providerReader(Context context) {
+    SQLiteDatabase providerReader() {
         return provideDbHelper().getReadableDatabase();
     }
 

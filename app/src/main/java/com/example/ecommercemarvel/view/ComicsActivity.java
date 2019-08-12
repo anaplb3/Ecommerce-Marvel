@@ -2,18 +2,19 @@ package com.example.ecommercemarvel.view;
 
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
-
 import com.example.ecommercemarvel.R;
 import com.example.ecommercemarvel.controller.MarvelService;
+import com.example.ecommercemarvel.dagger.DMarvelService;
 import com.example.ecommercemarvel.dagger.DaggerDMarvelService;
 import com.example.ecommercemarvel.model.ResponseDTO;
+import com.example.ecommercemarvel.service.MarvelPoolService;
 
 import javax.inject.Inject;
 
@@ -26,18 +27,26 @@ public class ComicsActivity extends AppCompatActivity implements Callback<Respon
     private ResponseDTO responseDTO;
     private static final String publicKey ="b4cd443a32bbf5b36e3ef1b9337b60d0";
 
-    @Inject MarvelService marvelApi;
+    @Inject
+    MarvelPoolService marvelPoolService;
 
+    @Inject
+    MarvelService marvelService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comics);
 
+        DMarvelService dMarvelService = DaggerDMarvelService.builder().build();
+        dMarvelService.inject(this);
+
         // Aqui tb
         this.recyclerView = findViewById(R.id.comicRecycleView);
 
-        create();
+//        MarvelService marvelService =  marvelPoolService.getService(MarvelService.class);
+
+        create(marvelService);
 
         Button buttonCheckout = findViewById(R.id.buttonGoCheckout);
         buttonCheckout.setOnClickListener(new View.OnClickListener() {
@@ -51,17 +60,17 @@ public class ComicsActivity extends AppCompatActivity implements Callback<Respon
     }
 
 
-    public void create() {
+    public void create(MarvelService marvelAPI) {
 
         String ts = "1563301090313";
         String hash = "a06144f886aa12b6407c0c40a0167006";
 
         //Aqui?
         //DMarvelService marvelAPI = MarvelPoolService.getInstance().getService(DMarvelService.class);
-        MarvelService marvelAPI = DaggerDMarvelService.builder()
+        /*MarvelService marvelAPI = DaggerDMarvelService.builder()
                 .build()
                 .getMarvelPoolService()
-                .getService(MarvelService.class);
+                .getService(MarvelService.class);*/
 
 
         Call<ResponseDTO> comics = marvelAPI.loadComics(ts, publicKey, hash);

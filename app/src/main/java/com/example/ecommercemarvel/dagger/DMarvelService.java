@@ -1,7 +1,7 @@
 package com.example.ecommercemarvel.dagger;
 
 
-import com.example.ecommercemarvel.service.MarvelPoolService;
+import com.example.ecommercemarvel.view.ComicsActivity;
 
 import javax.inject.Singleton;
 
@@ -11,7 +11,8 @@ import dagger.Component;
 @Component(modules = marvelPoolServiceModule.class)
 public interface DMarvelService {
 
-    MarvelPoolService getMarvelPoolService();
+
+    void inject(ComicsActivity activity);
 
 
 }
