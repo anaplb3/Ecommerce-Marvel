@@ -30,6 +30,7 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.MyView
     public CheckoutAdapter(Context context, List<Comic> checkoutComics) {
         this.context = context;
         this.checkoutComics = checkoutComics;
+        //aqui
         this.options = new RequestOptions();
         options.placeholder(R.drawable.tony)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)

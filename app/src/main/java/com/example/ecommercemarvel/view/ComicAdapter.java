@@ -23,6 +23,7 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.MyViewHolder
     private Comic comic;
     private Comic previousComic;
 
+    //Pegar aqui no construtor, talvez
     public ComicAdapter(Context context) {
         this.context = context;
 
@@ -56,7 +57,7 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.MyViewHolder
 
         comic = this.comics.get(i);
 
-
+        //Aqui tb
         Glide.with(context)
                 .load(comic.getUrlImage())
                 .placeholder(R.drawable.tony)

@@ -12,8 +12,10 @@ import android.widget.Button;
 
 import com.example.ecommercemarvel.R;
 import com.example.ecommercemarvel.controller.MarvelService;
+import com.example.ecommercemarvel.dagger.DaggerDMarvelService;
 import com.example.ecommercemarvel.model.ResponseDTO;
-import com.example.ecommercemarvel.service.MarvelPoolService;
+
+import javax.inject.Inject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,12 +26,15 @@ public class ComicsActivity extends AppCompatActivity implements Callback<Respon
     private ResponseDTO responseDTO;
     private static final String publicKey ="b4cd443a32bbf5b36e3ef1b9337b60d0";
 
+    @Inject MarvelService marvelApi;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comics);
 
+        // Aqui tb
         this.recyclerView = findViewById(R.id.comicRecycleView);
 
         create();
@@ -51,7 +56,13 @@ public class ComicsActivity extends AppCompatActivity implements Callback<Respon
         String ts = "1563301090313";
         String hash = "a06144f886aa12b6407c0c40a0167006";
 
-        MarvelService marvelAPI = MarvelPoolService.getInstance().getService(MarvelService.class);
+        //Aqui?
+        //DMarvelService marvelAPI = MarvelPoolService.getInstance().getService(DMarvelService.class);
+        MarvelService marvelAPI = DaggerDMarvelService.builder()
+                .build()
+                .getMarvelPoolService()
+                .getService(MarvelService.class);
+
 
         Call<ResponseDTO> comics = marvelAPI.loadComics(ts, publicKey, hash);
         comics.enqueue(this);
@@ -68,8 +79,9 @@ public class ComicsActivity extends AppCompatActivity implements Callback<Respon
 
             System.out.println("conectou");
 
-
+            // Aqui?
             this.responseDTO =  response.body();
+            //Aqui
             ComicAdapter comicAdapter = new ComicAdapter(this);
             comicAdapter.setComics(this.responseDTO.getData().getComics());
 

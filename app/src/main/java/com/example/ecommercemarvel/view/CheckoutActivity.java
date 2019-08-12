@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.ecommercemarvel.R;
+
 import com.example.ecommercemarvel.dbHelper.DbComics;
 import com.example.ecommercemarvel.model.Comic;
 
@@ -21,12 +22,14 @@ public class CheckoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
 
+        //Definitivamente aqui
         dbComics = new DbComics(getApplicationContext());
 
         checkoutComics = dbComics.getComicsInTheCart();
 
         checkoutRecycleView = findViewById(R.id.checkoutRecyclerView);
 
+        //Aqui tb
         CheckoutAdapter checkoutAdapter = new CheckoutAdapter(getApplicationContext(), checkoutComics);
         checkoutRecycleView.setAdapter(checkoutAdapter);
         checkoutRecycleView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));

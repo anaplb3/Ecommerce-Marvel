@@ -26,6 +26,7 @@ public class ComicDetailsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
+        //Possível injeção aqui
         comic = (Comic) intent.getSerializableExtra("comicObject");
 
         dbComics = new DbComics(getApplicationContext());
@@ -34,7 +35,7 @@ public class ComicDetailsActivity extends AppCompatActivity {
         settingDescription(comic.getDescription());
         settingPrice(comic.getPrice());
 
-        Log.i("title", comic.getTitle());
+        //Log.i("title", comic.getTitle());
 
         Button buttonExit = findViewById(R.id.buttonExit);
         buttonExit.setOnClickListener(new View.OnClickListener() {

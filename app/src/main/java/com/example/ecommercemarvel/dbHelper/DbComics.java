@@ -6,19 +6,40 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.example.ecommercemarvel.dagger.DDbComics;
+import com.example.ecommercemarvel.dagger.DaggerDDbComics;
+import com.example.ecommercemarvel.dagger.DbHelperModule;
 import com.example.ecommercemarvel.model.Comic;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 public class DbComics implements ComicsDAO{
-    private SQLiteDatabase write;
-    private SQLiteDatabase read;
+    @Inject @Named("writer") SQLiteDatabase write;
+    @Inject @Named("reader") SQLiteDatabase read;
+    @Inject DbHelper db;
+    private DDbComics DDbComics;
+
 
     public DbComics(Context context) {
-        DbHelper db = new DbHelper(context);
+        //Opa
+        /*DbHelper db = new DbHelper(context);
         this.write = db.getWritableDatabase();
-        this.read = db.getReadableDatabase();
+        this.read = db.getReadableDatabase();*/
+
+        this.db = DaggerDDbComics.builder().dbHelperModule(new DbHelperModule(context)).build().getDbHelper();
+        this.read = DaggerDDbComics.builder().dbHelperModule(new DbHelperModule(context)).build().getReader();
+        this.write = DaggerDDbComics.builder().dbHelperModule(new DbHelperModule(context)).build().getWriter();
+
+
+
+        Log.i("db is null", ""+(db != null) );
+        Log.i("writer is null", ""+(write != null) );
+        Log.i("reader is null", ""+(read != null) );
+
     }
 
 
@@ -68,6 +89,7 @@ public class DbComics implements ComicsDAO{
                     price = cursor.getDouble(indexprice);
                     isRare = cursor.getInt(indexIsRare);
 
+                    //talvez...
                     comic = new Comic(idComic, title, price, gettingBooleanValue(isRare));
 
                     comics.add(comic);
