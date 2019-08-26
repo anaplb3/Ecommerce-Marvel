@@ -70,23 +70,19 @@ public class DbComics implements ComicsDAO{
         int indexprice = gettingIndex(cursor, "price");
         int indexIsRare = gettingIndex(cursor, "isRare");
 
-        if(cursor != null) {
-            if(cursor.moveToFirst() && cursor.getCount() >= 1) {
+        if(cursor.moveToFirst() && cursor.getCount() >= 1) {
 
-                do {
-                    idComic = cursor.getInt(indexIdComic);
-                    title = cursor.getString(indexTitle);
-                    price = cursor.getDouble(indexprice);
-                    isRare = cursor.getInt(indexIsRare);
+            do {
+                idComic = cursor.getInt(indexIdComic);
+                title = cursor.getString(indexTitle);
+                price = cursor.getDouble(indexprice);
+                isRare = cursor.getInt(indexIsRare);
 
-                    //talvez...
-                    comic = new Comic(idComic, title, price, gettingBooleanValue(isRare));
+                comic = new Comic(idComic, title, price, gettingBooleanValue(isRare));
 
-                    comics.add(comic);
-                } while (cursor.moveToNext());
-            }
+                comics.add(comic);
+            } while (cursor.moveToNext());
         }
-
 
 
         cursor.close();

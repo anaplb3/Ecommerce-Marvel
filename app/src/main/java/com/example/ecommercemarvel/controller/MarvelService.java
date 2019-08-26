@@ -10,7 +10,7 @@ import retrofit2.http.Query;
 public interface MarvelService {
 
 
-    @GET("v1/public/comics?limit=50")
+    @GET("v1/public/comics")
     Observable<ResponseDTO> getComics(@Query("ts") String ts, @Query("apikey") String apikey, @Query("hash") String hash);
 
 }

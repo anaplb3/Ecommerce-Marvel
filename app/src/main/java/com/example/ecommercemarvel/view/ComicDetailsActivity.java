@@ -1,8 +1,10 @@
 package com.example.ecommercemarvel.view;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -11,6 +13,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.ecommercemarvel.R;
+import com.example.ecommercemarvel.contentProvider.ComicContract;
+import com.example.ecommercemarvel.contentProvider.ComicFacade;
 import com.example.ecommercemarvel.dbHelper.DbComics;
 import com.example.ecommercemarvel.model.Comic;
 
@@ -24,6 +28,15 @@ public class ComicDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_comic_details);
 
         Intent intent = getIntent();
+
+//        ComicFacade comicFacade = new ComicFacade(getApplicationContext());
+//        try {
+//            Uri uri = Uri.parse(intent.getStringExtra("comicURI"));
+//            comic = comicFacade.getComic( uri );
+//        } catch (Exception e) {
+//            Log.i("errooo", e.getMessage());
+//        }
+
 
         //Possível injeção aqui
         comic = (Comic) intent.getSerializableExtra("comicObject");
@@ -52,7 +65,9 @@ public class ComicDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                addToCart(comic.getId(), comic.getTitle(), comic.getPrice(), comic.isRare());
+                //addToCart(comic.getId(), comic.getTitle(), comic.getPrice(), comic.isRare());
+
+                addToCart(comic);
 
                 Toast.makeText(getApplicationContext(), "Quadrinho adicionado no carrinho!", Toast.LENGTH_SHORT).show();
             }
@@ -63,7 +78,9 @@ public class ComicDetailsActivity extends AppCompatActivity {
         buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addToCart(comic.getId(), comic.getTitle(), comic.getPrice(), comic.isRare());
+                //addToCart(comic.getId(), comic.getTitle(), comic.getPrice(), comic.isRare());
+
+                addToCart(comic);
 
                 Intent it = new Intent(getApplicationContext(), CheckoutActivity.class);
                 startActivity(it);
@@ -74,10 +91,16 @@ public class ComicDetailsActivity extends AppCompatActivity {
 
     }
 
-    private void addToCart(int id, String title, double price, boolean isRare) {
+    /*private void addToCart(int id, String title, double price, boolean isRare) {
 
         dbComics.addingToTheCart(comic.getId(), comic.getTitle(), comic.getPrice(), convertingBoolean(comic.isRare()));
 
+    }*/
+
+    private void addToCart(Comic comic) {
+
+        ComicFacade comicFacade = new ComicFacade(getApplicationContext());
+        comicFacade.addingToCart(comic);
     }
 
     private int convertingBoolean(boolean value) {

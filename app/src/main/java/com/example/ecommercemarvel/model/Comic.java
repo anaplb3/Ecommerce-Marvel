@@ -36,6 +36,14 @@ public class Comic implements Serializable {
         this.isRare = isRare;
     }
 
+    public Comic(int id, String title, double price, boolean isRare, String urlImage) {
+        this.id = id;
+        this.title = title;
+        this.price = price;
+        this.isRare = isRare;
+        this.urlImage = urlImage;
+    }
+
     public boolean isRare() {
         return isRare;
     }
@@ -98,7 +106,7 @@ public class Comic implements Serializable {
     }
 
     public String getUrlImage() {
-        setUrlImage();
+        //setUrlImage();
         return urlImage;
     }
 

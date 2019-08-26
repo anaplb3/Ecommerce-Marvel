@@ -47,9 +47,8 @@ public class RxJavaExample {
                 .getComics(ts, publicKey, hash)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(responseDTO -> setting(responseDTO.getData().getComics()), throwable -> throwable.printStackTrace())
+                .subscribe(responseDTO -> setting(responseDTO.getData().getComics()), throwable -> throwable.printStackTrace());
 
-        ;
     }
 
 
