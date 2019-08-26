@@ -2,8 +2,10 @@ package com.example.ecommercemarvel.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.ecommercemarvel.R;
+import com.example.ecommercemarvel.contentProvider.ComicContract;
+import com.example.ecommercemarvel.contentProvider.ComicFacade;
 import com.example.ecommercemarvel.model.Comic;
 
 import java.util.List;
@@ -23,13 +27,10 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.MyViewHolder
     private Comic comic;
     private Comic previousComic;
 
+    //Pegar aqui no construtor, talvez
     public ComicAdapter(Context context) {
         this.context = context;
 
-    }
-
-    public List<Comic> getComics() {
-        return comics;
     }
 
     public void setComics(List<Comic> comics) {
@@ -49,14 +50,13 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.MyViewHolder
         // Evitando que ele passe o quadrinho errado para a próxima activity (ComicDetails)
         try {
             previousComic = this.comics.get(i-1);
-        }catch (IndexOutOfBoundsException error) {
+        } catch (IndexOutOfBoundsException error) {
             previousComic = this.comics.get(i);
         }
-
-
+        
         comic = this.comics.get(i);
 
-
+        //Aqui tb
         Glide.with(context)
                 .load(comic.getUrlImage())
                 .placeholder(R.drawable.tony)
@@ -85,12 +85,13 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.MyViewHolder
                 public void onClick(View v) {
                     Intent intent = new Intent(context, ComicDetailsActivity.class);
                     intent.putExtra("comicObject", previousComic);
+                    intent.putExtra("comicURI", ComicContract.ComicEntry.buildComicUriWithId(comics.indexOf(comic)).toString());
+                    Log.i("comic uri",  ComicContract.ComicEntry.buildComicUriWithId(comics.indexOf(comic)).toString());
                     context.startActivity(intent);
                 }
             });
 
-        }
-
+            }
 
     }
 }

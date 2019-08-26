@@ -6,21 +6,32 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.example.ecommercemarvel.dagger.DDbComics;
+import com.example.ecommercemarvel.dagger.DaggerDDbComics;
+import com.example.ecommercemarvel.dagger.DbHelperModule;
 import com.example.ecommercemarvel.model.Comic;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 public class DbComics implements ComicsDAO{
-    private SQLiteDatabase write;
-    private SQLiteDatabase read;
+    @Inject @Named("writer") SQLiteDatabase write;
+    @Inject @Named("reader") SQLiteDatabase read;
+    @Inject DbHelper db;
 
     public DbComics(Context context) {
-        DbHelper db = new DbHelper(context);
-        this.write = db.getWritableDatabase();
-        this.read = db.getReadableDatabase();
-    }
 
+        DDbComics dDbComics = DaggerDDbComics.builder().dbHelperModule(new DbHelperModule(context)).build();
+        dDbComics.inject(this);
+
+        Log.i("db is null", ""+(db == null) );
+        Log.i("writer is null", ""+(write == null) );
+        Log.i("reader is null", ""+(read == null) );
+
+    }
 
     @Override
     public void addingToTheCart(int idComic, String title, double price, int isRare) {
@@ -59,22 +70,19 @@ public class DbComics implements ComicsDAO{
         int indexprice = gettingIndex(cursor, "price");
         int indexIsRare = gettingIndex(cursor, "isRare");
 
-        if(cursor != null) {
-            if(cursor.moveToFirst() && cursor.getCount() >= 1) {
+        if(cursor.moveToFirst() && cursor.getCount() >= 1) {
 
-                do {
-                    idComic = cursor.getInt(indexIdComic);
-                    title = cursor.getString(indexTitle);
-                    price = cursor.getDouble(indexprice);
-                    isRare = cursor.getInt(indexIsRare);
+            do {
+                idComic = cursor.getInt(indexIdComic);
+                title = cursor.getString(indexTitle);
+                price = cursor.getDouble(indexprice);
+                isRare = cursor.getInt(indexIsRare);
 
-                    comic = new Comic(idComic, title, price, gettingBooleanValue(isRare));
+                comic = new Comic(idComic, title, price, gettingBooleanValue(isRare));
 
-                    comics.add(comic);
-                } while (cursor.moveToNext());
-            }
+                comics.add(comic);
+            } while (cursor.moveToNext());
         }
-
 
 
         cursor.close();
