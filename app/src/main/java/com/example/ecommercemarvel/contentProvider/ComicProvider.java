@@ -6,7 +6,6 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.util.Log;
 
@@ -150,6 +149,7 @@ public class ComicProvider extends ContentProvider {
     public int update( Uri uri,  ContentValues contentValues,  String selection,  String[] args) {
 
         int rows = 0;
+        Uri uri1 = null;
 
         SQLiteDatabase db = comicDbHelper.getWritableDatabase();
 
@@ -170,6 +170,10 @@ public class ComicProvider extends ContentProvider {
 
             break;
         }
+
+        uri1 = ContentUris.withAppendedId(ComicContract.CONTENT_URI, rows);
+
+        getContext().getContentResolver().notifyChange(uri1, null);
 
         return rows;
     }

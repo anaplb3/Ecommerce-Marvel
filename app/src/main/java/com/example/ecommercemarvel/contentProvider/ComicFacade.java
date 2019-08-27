@@ -134,6 +134,15 @@ public class ComicFacade {
             Log.i("facade error", e.getMessage());
         }
 
+    }
 
+    public void updateTitleComic(Comic comic, String newTitle) {
+
+        Uri uri = ComicContract.ComicEntry.buildComicUriWithId(comic.getId());
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ComicContract.ComicEntry.COLUMN_TITLE, newTitle);
+
+        context.getContentResolver().update(uri, contentValues, null, null);
     }
 }
