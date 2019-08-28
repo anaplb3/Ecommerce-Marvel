@@ -2,7 +2,7 @@ package com.example.ecommercemarvel.test;
 
 
 import com.example.ecommercemarvel.model.Comic;
-import com.example.ecommercemarvel.model.MarvelData;
+import com.example.ecommercemarvel.model.MarvelDataComics;
 import com.example.ecommercemarvel.model.Price;
 import com.example.ecommercemarvel.model.Thumbnail;
 
@@ -14,8 +14,8 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class MarvelDataTest {
-    MarvelData marvelData;
+public class MarvelDataComicsTest {
+    MarvelDataComics marvelData;
 
 
     @Before
@@ -28,7 +28,7 @@ public class MarvelDataTest {
         }
 
 
-        marvelData = new MarvelData(comics.size(), 5,comics);
+        marvelData = new MarvelDataComics(comics.size(), 5,comics);
     }
 
     private Comic generatingComics(int id) {

@@ -3,7 +3,7 @@ package com.example.ecommercemarvel.rxJava;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+
 
 import com.example.ecommercemarvel.controller.MarvelService;
 import com.example.ecommercemarvel.dagger.DMarvelService;

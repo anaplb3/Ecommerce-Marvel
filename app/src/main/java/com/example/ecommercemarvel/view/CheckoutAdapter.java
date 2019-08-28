@@ -71,32 +71,22 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.MyView
 
         comic = this.checkoutComics.get(i);
 
+        if(comic.getUrlImage().contains("image")) {
+            myViewHolder.comicImage.setImageResource(R.drawable.logo_marvel_erro);
+        } else {
+            Glide.with(context)
+                    .load(comic.getUrlImage())
+                    .placeholder(R.drawable.tony)
+                    .apply(options)
+                    .into(myViewHolder.comicImage);
+        }
 
-        Glide.with(context)
-                .load(comic.getUrlImage())
-                .placeholder(R.drawable.tony)
-                .apply(options)
-                .into(myViewHolder.comicImage);
 
         settingTitle(myViewHolder.title);
         updatingQtd(myViewHolder.totalComics);
 
-        //v();
-        //myViewHolder.comicTitleCheckout.setText(comic.getTitle());
-
     }
 
-    public void v() {
-
-        Comic comiic = null;
-        try {
-            comiic = comicFacade.getComic( ComicContract.ComicEntry.buildComicUriWithId(0) );
-            Log.i("checkout holder",comiic.getTitle());
-        } catch (Exception e) {
-            Log.i("errooo", e.getMessage());
-        }
-
-    }
 
     @Override
     public int getItemCount() {
@@ -105,20 +95,17 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.MyView
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private ImageView comicImage;
-        private TextView comicTitleCheckout;
         private ImageButton addComic;
         private ImageButton removeComic;
         private TextView totalComics;
         private TextView title;
         private ImageButton lowerComic;
-        private CheckoutActivity checkoutActivity;
 
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             comicImage = itemView.findViewById(R.id.img_comic);
-            comicTitleCheckout = itemView.findViewById(R.id.comicTitleCheckout);
             addComic = itemView.findViewById(R.id.btn_add);
             totalComics = itemView.findViewById(R.id.txt_total);
             title = itemView.findViewById(R.id.txt_title);

@@ -17,7 +17,6 @@ public class Comic implements Serializable {
     private List<Price> prices;
     private Thumbnail thumbnail;
     private CharacterList characters;
-    private List<Image> images;
 
 
     private double price;
@@ -25,7 +24,7 @@ public class Comic implements Serializable {
     private boolean isRare;
     private int qtd;
 
-    public Comic(int id, String title, String description, List<Price> prices, Thumbnail thumbnail, CharacterList characters, List<Image> images) {
+    public Comic(int id, String title, String description, List<Price> prices, Thumbnail thumbnail, CharacterList characters) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -34,7 +33,6 @@ public class Comic implements Serializable {
         this.isRare = false;
         this.qtd = 1;
         this.characters = characters;
-        this.images = images;
     }
 
     public Comic(int id, String title, double price, boolean isRare) {
@@ -52,10 +50,6 @@ public class Comic implements Serializable {
         this.isRare = isRare;
         this.urlImage = urlImage;
         this.qtd = 1;
-    }
-
-    public List<Image> getImage() {
-        return images;
     }
 
     public boolean isRare() {
