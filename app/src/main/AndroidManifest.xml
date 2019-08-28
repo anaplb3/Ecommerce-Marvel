@@ -13,7 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.LoadActivity"></activity>
         <activity android:name=".view.CheckoutActivity" />
         <activity android:name=".view.ComicDetailsActivity" />
         <activity android:name=".view.ComicsActivity" />

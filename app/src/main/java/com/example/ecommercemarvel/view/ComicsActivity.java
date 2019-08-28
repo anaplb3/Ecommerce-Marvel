@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.example.ecommercemarvel.R;
 import com.example.ecommercemarvel.controller.MarvelService;
 import com.example.ecommercemarvel.dagger.DMarvelService;

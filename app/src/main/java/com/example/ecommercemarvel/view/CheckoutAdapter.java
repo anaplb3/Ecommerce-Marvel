@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,12 +16,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.ecommercemarvel.R;
-import com.example.ecommercemarvel.contentProvider.ComicContract;
 import com.example.ecommercemarvel.contentProvider.ComicFacade;
 import com.example.ecommercemarvel.model.Comic;
 
 import java.util.List;
-
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
@@ -39,7 +36,6 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.MyView
         this.context = context;
         this.checkoutComics = checkoutComics;
         this.comicFacade = new ComicFacade(context);
-        //aqui
         this.options = new RequestOptions();
         options.placeholder(R.drawable.tony)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
